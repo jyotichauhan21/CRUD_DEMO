@@ -3,6 +3,7 @@ using CRUD_DEMO.Models;
 using CRUD_DEMO.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace CRUD_DEMO.Controllers
 {
@@ -61,11 +62,18 @@ namespace CRUD_DEMO.Controllers
         public async Task<IActionResult> View(UpdateProductViewModel model)
         {
             var product = await mvcDemoDbContext.Products.FindAsync(model.Id);
+
+            //var isNameExists = mvcDemoDbContext.Products.FirstOrDefault(x => x.Name == model.Name);
+            //Console.WriteLine(isNameExists);
+            //if (isNameExists != null)
+            //{
+            //    ViewBag.Message = "Exist";
+            //}
+
             if (product != null)
             {
                 product.Name = model.Name;
                 product.Price = model.Price;
-
                 await mvcDemoDbContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CRUD_DEMO.Models.Domain
@@ -6,8 +7,14 @@ namespace CRUD_DEMO.Models.Domain
     public class Product
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        [Column(TypeName = "decimal(18,2)")]
+
+        [Unique(ErrorMessage = "Name already exist!")]
+        [Required(ErrorMessage = "Please enter name")]
+        [StringLength(100)]
+        public string? Name { get; set; }
+
+        [Required(ErrorMessage = "Please enter price")]
+        [Range(0, 999.99)] 
         public decimal Price { get; set; }
     }
 }

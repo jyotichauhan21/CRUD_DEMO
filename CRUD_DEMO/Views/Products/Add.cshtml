@@ -1,4 +1,6 @@
 ﻿@model CRUD_DEMO.Models.AddProductViewModel
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
 }
 
@@ -6,12 +8,19 @@
 <form method="post" action="Add" class="mt-5">
     <div class="form-group">
         <label for="">Name:</label>
-        <input type="text" class="form-control" asp-for="Name">
+        <input type="text" class="form-control" maxlength="100" asp-for="Name" required>
+        @*@if (ViewBag.Message != null && ViewBag.Message == "Exist")
+        {
+            <br />
+
+            <span style="color:red;">Name already exist.</span>
+        }*@
     </div>
     <div class="form-group">
         <label for="">Price:</label>
-        <input type="number" class="form-control" asp-for="Price">
+        <input type="number" class="form-control" min=0 oninput="validity.valid||(value='')" asp-for="Price" required>
     </div>
     
     <button type="submit" class="btn btn-primary">Submit</button>
+
 </form>
