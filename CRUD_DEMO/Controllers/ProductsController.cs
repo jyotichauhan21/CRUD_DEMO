@@ -3,6 +3,7 @@ using CRUD_DEMO.Models;
 using CRUD_DEMO.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using System.Xml.Linq;
 
 namespace CRUD_DEMO.Controllers
@@ -29,20 +30,29 @@ namespace CRUD_DEMO.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddProductViewModel addProductRequest)
         {
-            var isnameexists = await mvcDemoDbContext.Products.FirstOrDefaultAsync(x => x.Name == addProductRequest.Name);
-            if (isnameexists != null)
+            try
             {
-                ViewBag.Message = "Exist";
+                var isnameexists = await mvcDemoDbContext.Products.FirstOrDefaultAsync(x => x.Name == addProductRequest.Name);
+                Console.Write(isnameexists);
+                if (isnameexists != null)
+                {
+                    ViewBag.Message = "Exist";
+                }
+                var product = new Product()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = addProductRequest.Name,
+                    Price = addProductRequest.Price
+                };
+                await mvcDemoDbContext.Products.AddAsync(product);
+                await mvcDemoDbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            var product = new Product()
+           
+            catch (Exception ex)
             {
-                Id = Guid.NewGuid(),
-                Name = addProductRequest.Name,
-                Price = addProductRequest.Price
-            };
-            await mvcDemoDbContext.Products.AddAsync(product);
-            await mvcDemoDbContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+                Console.WriteLine("Error occured!", ex.Message);
+            }
 
         }
 
