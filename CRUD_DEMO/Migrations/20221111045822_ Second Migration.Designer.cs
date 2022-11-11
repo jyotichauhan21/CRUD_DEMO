@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUD_DEMO.Migrations
 {
     [DbContext(typeof(MVCDemoDbContext))]
-    [Migration("20221110091950_Third Migration")]
-    partial class ThirdMigration
+    [Migration("20221111045822_ Second Migration")]
+    partial class SecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

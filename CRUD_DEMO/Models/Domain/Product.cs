@@ -10,7 +10,7 @@ namespace CRUD_DEMO.Models.Domain
 
         [Unique(ErrorMessage = "Name already exist!")]
         [Required(ErrorMessage = "Please enter name")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "Name length can't be more than 100.")]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Please enter price")]

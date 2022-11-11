@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUD_DEMO.Migrations
 {
     [DbContext(typeof(MVCDemoDbContext))]
-    [Migration("20221110085346_Initial Migration")]
+    [Migration("20221111045518_ Initial Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,8 +32,8 @@ namespace CRUD_DEMO.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");

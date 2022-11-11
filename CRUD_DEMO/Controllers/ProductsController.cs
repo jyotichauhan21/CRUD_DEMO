@@ -29,6 +29,11 @@ namespace CRUD_DEMO.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddProductViewModel addProductRequest)
         {
+            var isnameexists = await mvcDemoDbContext.Products.FirstOrDefaultAsync(x => x.Name == addProductRequest.Name);
+            if (isnameexists != null)
+            {
+                ViewBag.Message = "Exist";
+            }
             var product = new Product()
             {
                 Id = Guid.NewGuid(),
@@ -62,13 +67,6 @@ namespace CRUD_DEMO.Controllers
         public async Task<IActionResult> View(UpdateProductViewModel model)
         {
             var product = await mvcDemoDbContext.Products.FindAsync(model.Id);
-
-            //var isNameExists = mvcDemoDbContext.Products.FirstOrDefault(x => x.Name == model.Name);
-            //Console.WriteLine(isNameExists);
-            //if (isNameExists != null)
-            //{
-            //    ViewBag.Message = "Exist";
-            //}
 
             if (product != null)
             {
